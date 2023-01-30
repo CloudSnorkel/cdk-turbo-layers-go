@@ -5,6 +5,10 @@ package cloudsnorkelcdkturbolayers
 
 // Building without runtime type checking enabled, so all the below just return nil
 
+func (n *jsiiProxy_NodejsDependencyPackager) validateLayerFromInlineParameters(id *string, libraries *[]*string, props *LayerProps) error {
+	return nil
+}
+
 func (n *jsiiProxy_NodejsDependencyPackager) validateLayerFromPackageJsonParameters(id *string, path *string, props *LayerProps) error {
 	return nil
 }

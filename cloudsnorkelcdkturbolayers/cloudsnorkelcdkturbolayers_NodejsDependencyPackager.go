@@ -27,6 +27,9 @@ type NodejsDependencyPackager interface {
 	// The tree node.
 	// Experimental.
 	Node() constructs.Node
+	// Create a layer for dependencies passed as an argument and installed with npm.
+	// Experimental.
+	LayerFromInline(id *string, libraries *[]*string, props *LayerProps) awslambda.LayerVersion
 	// Create a layer for dependencies defined in package.json and (optionally) package-lock.json and installed with npm.
 	// Experimental.
 	LayerFromPackageJson(id *string, path *string, props *LayerProps) awslambda.LayerVersion
@@ -121,6 +124,22 @@ func NodejsDependencyPackager_IsConstruct(x interface{}) *bool {
 		"@cloudsnorkel/cdk-turbo-layers.NodejsDependencyPackager",
 		"isConstruct",
 		[]interface{}{x},
+		&returns,
+	)
+
+	return returns
+}
+
+func (n *jsiiProxy_NodejsDependencyPackager) LayerFromInline(id *string, libraries *[]*string, props *LayerProps) awslambda.LayerVersion {
+	if err := n.validateLayerFromInlineParameters(id, libraries, props); err != nil {
+		panic(err)
+	}
+	var returns awslambda.LayerVersion
+
+	_jsii_.Invoke(
+		n,
+		"layerFromInline",
+		[]interface{}{id, libraries, props},
 		&returns,
 	)
 

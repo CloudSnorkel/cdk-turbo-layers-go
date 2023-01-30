@@ -11,6 +11,22 @@ import (
 	"github.com/aws/constructs-go/constructs/v10"
 )
 
+func (n *jsiiProxy_NodejsDependencyPackager) validateLayerFromInlineParameters(id *string, libraries *[]*string, props *LayerProps) error {
+	if id == nil {
+		return fmt.Errorf("parameter id is required, but nil was provided")
+	}
+
+	if libraries == nil {
+		return fmt.Errorf("parameter libraries is required, but nil was provided")
+	}
+
+	if err := _jsii_.ValidateStruct(props, func() string { return "parameter props" }); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (n *jsiiProxy_NodejsDependencyPackager) validateLayerFromPackageJsonParameters(id *string, path *string, props *LayerProps) error {
 	if id == nil {
 		return fmt.Errorf("parameter id is required, but nil was provided")

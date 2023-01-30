@@ -29,6 +29,7 @@ func init() {
 		[]_jsii_.Member{
 			_jsii_.MemberProperty{JsiiProperty: "connections", GoGetter: "Connections"},
 			_jsii_.MemberProperty{JsiiProperty: "grantPrincipal", GoGetter: "GrantPrincipal"},
+			_jsii_.MemberMethod{JsiiMethod: "layerFromInline", GoMethod: "LayerFromInline"},
 			_jsii_.MemberMethod{JsiiMethod: "layerFromPackageJson", GoMethod: "LayerFromPackageJson"},
 			_jsii_.MemberMethod{JsiiMethod: "layerFromYarn", GoMethod: "LayerFromYarn"},
 			_jsii_.MemberProperty{JsiiProperty: "node", GoGetter: "Node"},
