@@ -19,6 +19,24 @@ func init() {
 			"CODEBUILD": DependencyPackagerType_CODEBUILD,
 		},
 	)
+	_jsii_.RegisterClass(
+		"@cloudsnorkel/cdk-turbo-layers.JavaDependencyPackager",
+		reflect.TypeOf((*JavaDependencyPackager)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberProperty{JsiiProperty: "connections", GoGetter: "Connections"},
+			_jsii_.MemberProperty{JsiiProperty: "grantPrincipal", GoGetter: "GrantPrincipal"},
+			_jsii_.MemberMethod{JsiiMethod: "layerFromMaven", GoMethod: "LayerFromMaven"},
+			_jsii_.MemberProperty{JsiiProperty: "node", GoGetter: "Node"},
+			_jsii_.MemberMethod{JsiiMethod: "toString", GoMethod: "ToString"},
+		},
+		func() interface{} {
+			j := jsiiProxy_JavaDependencyPackager{}
+			_jsii_.InitJsiiProxy(&j.Type__constructsConstruct)
+			_jsii_.InitJsiiProxy(&j.Type__awsec2IConnectable)
+			_jsii_.InitJsiiProxy(&j.Type__awsiamIGrantable)
+			return &j
+		},
+	)
 	_jsii_.RegisterStruct(
 		"@cloudsnorkel/cdk-turbo-layers.LayerProps",
 		reflect.TypeOf((*LayerProps)(nil)).Elem(),
