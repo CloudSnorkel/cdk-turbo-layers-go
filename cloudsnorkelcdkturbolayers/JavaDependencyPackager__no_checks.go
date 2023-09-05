@@ -1,6 +1,5 @@
 //go:build no_runtime_type_checking
 
-// Speed-up Lambda function deployment with dependency layers built in AWS
 package cloudsnorkelcdkturbolayers
 
 // Building without runtime type checking enabled, so all the below just return nil

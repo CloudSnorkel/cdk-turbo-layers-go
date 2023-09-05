@@ -1,4 +1,3 @@
-// Speed-up Lambda function deployment with dependency layers built in AWS
 package cloudsnorkelcdkturbolayers
 
 
