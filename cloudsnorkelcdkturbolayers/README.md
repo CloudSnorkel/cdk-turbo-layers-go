@@ -83,7 +83,9 @@ The best way to browse API documentation is on [Constructs Hub](https://construc
       dotnet add package CloudSnorkel.Cdk.TurboLayers
       ```
 
-## Example
+## Examples
+
+The very basic example below will create a layer with dependencies specified as parameters and attach it to a Lambda function.
 
 ```go
  const packager = new PythonDependencyPackager(this, 'Packager', {
@@ -97,14 +99,76 @@ new Function(this, 'Function with inline requirements', {
     // this will create a layer from with requests and Scrapy in a Lambda function instead of locally
     layers: [packager.layerFromInline('inline requirements', ['requests', 'Scrapy'])],
 });
+```
+
+The next example will create a layer with dependencies specified in a `requirements.txt` file and attach it to a Lambda function.
+
+```go
+const packager = new PythonDependencyPackager(this, 'Packager', {
+    runtime: lambda.Runtime.PYTHON_3_9,
+    type: DependencyPackagerType.LAMBDA,
+});
 new Function(this, 'Function with external source and requirements', {
     handler: 'index.handler',
     code: lambda.Code.fromAsset('lambda-src'),
     runtime: lambda.Runtime.PYTHON_3_9,
-    // this will read pyproject.toml and poetry.lock and create a layer from the requirements in a Lambda function instead of locally
-    layers: [packager.layerFromPoetry('poetry requirements', 'lambda-src')],
+    // this will read requirements.txt and create a layer from the requirements in a Lambda function instead of locally
+    layers: [packager.layerFromRequirementsTxt('requirements.txt', 'lambda-src')],
 });
 ```
+
+Custom package managers like Pipenv or Poetry are also supported.
+
+```go
+const packager = new PythonDependencyPackager(this, 'Packager', {
+    runtime: lambda.Runtime.PYTHON_3_9,
+    type: DependencyPackagerType.LAMBDA,
+});
+new Function(this, 'Function with external source and requirements', {
+    handler: 'index.handler',
+    code: lambda.Code.fromAsset('lambda-poetry-src'),
+    runtime: lambda.Runtime.PYTHON_3_9,
+    // this will read pyproject.toml and poetry.lock and create a layer from the requirements in a Lambda function instead of locally
+    layers: [packager.layerFromPoetry('poetry dependencies', 'lambda-poetry-src')],
+});
+```
+
+If your dependencies have some C library dependencies, you may need to use the more capable but slower CodeBuild packager.
+
+```go
+const packager = new PythonDependencyPackager(this, 'Packager', {
+    runtime: lambda.Runtime.PYTHON_3_9,
+    type: DependencyPackagerType.CODEBUILD,
+    preinstallCommands: [
+        'apt install -y libxml2-dev libxslt-dev libffi-dev libssl-dev',
+    ],
+});
+new Function(this, 'Function with external source and requirements', {
+    handler: 'index.handler',
+    code: lambda.Code.fromAsset('lambda-pipenv-src'),
+    runtime: lambda.Runtime.PYTHON_3_9,
+    layers: [packager.layerFromPipenv('pipenv dependencies', 'lambda-pipenv-src')],
+});
+```
+
+Building layers for ARM64 functions is also supported.
+
+```go
+const packager = new PythonDependencyPackager(this, 'Packager', {
+    runtime: lambda.Runtime.PYTHON_3_9,
+    type: DependencyPackagerType.LAMBDA,
+    architecture: Architecture.ARM_64,
+});
+new Function(this, 'Function with external source and requirements', {
+    handler: 'index.handler',
+    code: lambda.Code.fromAsset('lambda-poetry-src'),
+    runtime: lambda.Runtime.PYTHON_3_9,
+    architecture: Architecture.ARM_64,
+    layers: [packager.layerFromPoetry('poetry dependencies', 'lambda-poetry-src')],
+});
+```
+
+All these examples are for Python, but the same API is available for Node.js, Ruby, and Java. The same build options are available. Multiple different package managers are supported. See [Constructs Hub](https://constructs.dev/packages/@cloudsnorkel/cdk-turbo-layers/) for more details.
 
 ## Older Implementations
 
