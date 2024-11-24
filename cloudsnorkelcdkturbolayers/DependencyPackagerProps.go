@@ -16,7 +16,7 @@ type DependencyPackagerProps struct {
 	Architecture awslambda.Architecture `field:"optional" json:"architecture" yaml:"architecture"`
 	// Removal policy for logs of image builds.
 	//
-	// If deployment fails on the custom resource, try setting this to `RemovalPolicy.RETAIN`. This way the CodeBuild logs can still be viewed, and you can see why the build failed.
+	// If deployment fails on the custom resource, try setting this to `RemovalPolicy.RETAIN`. This way logs can still be viewed, and you can see why the build failed.
 	//
 	// We try to not leave anything behind when removed. But sometimes a log staying behind is useful.
 	// Default: RemovalPolicy.DESTROY
@@ -52,7 +52,7 @@ type DependencyPackagerProps struct {
 	// Type of dependency packager.
 	//
 	// Use Lambda for speed and CodeBuild for complex dependencies that require building native extensions.
-	// Default: {@link DependencyPackagerType.LAMBDA}
+	// Default: {@link DependencyPackagerType.LAMBDA }
 	//
 	// Experimental.
 	Type DependencyPackagerType `field:"optional" json:"type" yaml:"type"`
